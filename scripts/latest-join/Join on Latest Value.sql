@@ -21,7 +21,8 @@ values
 (1, 'Parent 1'),
 (2, 'Parent 2'),
 (3, 'Parent 3'),
-(4, 'Parent 4')
+(4, 'Parent 4'),
+(5, 'Parent 5')
 
 insert into @Child
 values
@@ -35,24 +36,33 @@ values
 
 (7, 'Child 3.1', 3, 10),
 (8, 'Child 3.2', 3, 1),
-(9, 'Child 3.3', 3, 300)
+(9, 'Child 3.3', 3, 300),
+
+(10, 'Child 4.1', 4, 12)
+
 
 -- return:
 --	Parent 1, Child 1.2
 --	Parent 2, Child 2.1
 --	Parent 3, Child 3.3
---	Parent 4, null
+--	Parent 4, Child 4.1
+--	Parent 5, null
 
 select 
 		  p.Id
 		, p.[Name]
-		, maxchild.[Id]
+		, maxchild.[Id] as 'ChildId'
 		, maxchild.[ChildName]
 		, maxchild.[Value]
 from @Parent as p
 OUTER APPLY (
-	select top 1 c.Id, c.[Name] as [ChildName], c.[Value] 
+	select top 1 
+		  c.Id
+		, c.[Name] as [ChildName]
+		, c.[Value] 
 	from @Child c 
-	where C.ParentId = P.Id  
+	where 
+		c.ParentId = P.Id  
 	ORDER BY C.[Value] desc
 ) as maxchild
+--left join @Child c on maxchild.Id = c.Id
