@@ -6,8 +6,9 @@
 --				type.
 --
 -------------------------------------------------------------------------------
-declare @columnName varchar(max) = 'vendor'
-declare @tableName varchar(max)
+declare @findExact bit = 1
+declare @columnName varchar(max) --= 'status'
+declare @tableName varchar(max) = 'Organisation'
 declare @colType varchar(max)
 
 
@@ -26,8 +27,14 @@ join sys.types t on t.[user_type_id] = col.[user_type_id]
 where
 	1=1
 	and (@colType is null or t.[name] = @colType)
-	and (@tableName is null or tbl.[name] like '%' + @tableName + '%')
-	and (@columnName is null or col.[name] like '%' + @columnName + '%')
+	and (@tableName is null 
+		or (@findExact = 1 and tbl.[name] = @tableName) 
+		or (@findExact = 0 and tbl.[name] like '%' + @tableName + '%')
+	)
+	and (@columnName is null 
+		or (@findExact = 1 and col.[name] = @columnName) 
+		or (@findExact = 0 and col.[name] like '%' + @columnName + '%')
+	)
 
 order by 
 	  tbl.[name]

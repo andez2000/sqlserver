@@ -13,8 +13,6 @@ declare @selfReferencingTable table
 	[level] int
 )
 
-declare @levelToSearchTo int = 1
-
 insert into @selfReferencingTable
 values
 (1, 'Entity 1.1', null, 1),
@@ -55,7 +53,6 @@ select
 		, x.topLevelParentId
 from cte x
 join @selfReferencingTable s on x.id = s.id
---where x.[topLevelParentId] <= @levelToSearchTo
 
 order by x.id, x.parent_id, x.[level]  
 
