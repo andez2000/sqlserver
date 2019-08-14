@@ -22,7 +22,7 @@ WHERE
     i.OBJECT_ID > 255 AND   
     i.index_id <= 1
 
-	and t.name like '%disci%'
+	--and t.name like '%disci%'
 
 GROUP BY 
     t.NAME, i.object_id, i.index_id, i.name, p.[Rows]
