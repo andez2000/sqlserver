@@ -8,12 +8,13 @@
 -------------------------------------------------------------------------------
 declare @findExact bit = 1
 declare @columnName varchar(max) --= 'status'
-declare @tableName varchar(max) = 'Organisation'
+declare @tableName varchar(max) = 'CourseTemplate'
 declare @colType varchar(max)
 
 
 select	  
 		  tbl.[name] as [Table]
+		, SCHEMA_NAME(tbl.[schema_id]) as [Schema]
 		, col.[name] as [Column]
 		, t.[name] as [DataType]
 		--, col.[max_length]
@@ -23,6 +24,7 @@ select
 from sys.columns col
 join sys.tables tbl on col.[object_id] = tbl.[object_id]
 join sys.types t on t.[user_type_id] = col.[user_type_id]
+join sys.schemas s on t.[schema_id] = s.[schema_id]
 
 where
 	1=1
