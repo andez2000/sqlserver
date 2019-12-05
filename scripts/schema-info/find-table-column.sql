@@ -8,23 +8,23 @@
 -------------------------------------------------------------------------------
 declare @findExact bit = 0
 declare @columnName varchar(max) = ''
-declare @tableName varchar(max) = 'taxru'
+declare @tableName varchar(max) = 'coursetemplate'
 declare @colType varchar(max)
 
 
 select	  
-		  tbl.[name] as [Table]
-		, SCHEMA_NAME(tbl.[schema_id]) as [Schema]
+		  s.[name] as [Schema]
+		, tbl.[name] as [Table]
 		, col.[name] as [Column]
 		, t.[name] as [DataType]
 		, col.[max_length]
 		, t.[max_length]
 		, t.[user_type_id]
-		
+
 from sys.columns col
 join sys.tables tbl on col.[object_id] = tbl.[object_id]
 join sys.types t on t.[user_type_id] = col.[user_type_id]
-join sys.schemas s on t.[schema_id] = s.[schema_id]
+join sys.schemas s on tbl.[schema_id] = s.[schema_id]
 
 where
 	1=1
