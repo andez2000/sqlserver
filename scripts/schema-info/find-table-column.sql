@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 declare @findExact bit = 0
 declare @columnName varchar(max) = ''
-declare @tableName varchar(max) = 'coursetemplate'
+declare @tableName varchar(max) = ''
 declare @colType varchar(max)
 
 
