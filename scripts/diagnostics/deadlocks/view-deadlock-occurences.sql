@@ -1,8 +1,7 @@
 SELECT 
     'Deadlocks Occurrences Report', 
     CONVERT(BIGINT,((1.0 * p.cntr_value / 
-NULLIF(datediff(DD,d.create_date,CURRENT_TIMESTAMP),0)))) as 
-AveragePerDay,
+NULLIF(datediff(DD,d.create_date,CURRENT_TIMESTAMP),0)))) as AveragePerDay,
     CAST(p.cntr_value AS NVARCHAR(100)) + ' deadlocks have been recorded 
 since startup.' AS Details, 
     d.create_date as StartupDateTime
