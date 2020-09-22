@@ -3,7 +3,10 @@
 --	SQL Versions:	SQL 2016, 2019
 --
 
+-- we need to enable trace events for deadlock monitoring
+DBCC TRACEON (3605,1204,1222,-1)
 
+-- collect information
 CREATE EVENT SESSION [Collect-Deadlocks] ON SERVER 
 ADD EVENT sqlserver.xml_deadlock_report(
     ACTION(
