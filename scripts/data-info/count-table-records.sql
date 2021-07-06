@@ -1,13 +1,13 @@
 SELECT 
-    t.NAME AS TableName,
-    i.name as indexName,
-    p.[Rows],
-    sum(a.total_pages) as TotalPages, 
-    sum(a.used_pages) as UsedPages, 
-    sum(a.data_pages) as DataPages,
-    (sum(a.total_pages) * 8) / 1024 as TotalSpaceMB, 
-    (sum(a.used_pages) * 8) / 1024 as UsedSpaceMB, 
-    (sum(a.data_pages) * 8) / 1024 as DataSpaceMB
+      t.[name] AS TableName
+    , i.[name] as indexName
+    , p.[Rows]
+    , sum(a.total_pages) as TotalPages
+    , sum(a.used_pages) as UsedPages
+    , sum(a.data_pages) as DataPages
+    , (sum(a.total_pages) * 8) / 1024 as TotalSpaceMB
+    , (sum(a.used_pages) * 8) / 1024 as UsedSpaceMB
+    , (sum(a.data_pages) * 8) / 1024 as DataSpaceMB
 FROM 
     sys.tables t
 INNER JOIN      
